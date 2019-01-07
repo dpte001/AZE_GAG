@@ -1,11 +1,12 @@
 import numpy as np
 
+#오버플로 대책을 반영한 softmax
 def softmax(x):
-    exp_x = np.exp(x)
-    y = exp_x.copy()
-    for i in range(x.shape):
-        sum_exp_x = np.sum(exp_x[i])
-        y[i] = y[i] / sum_exp_x
+    y = np.zeros(x.shape)
+    for i in range(x.shape[0]):
+        C = np.max(x[0])
+        exp_x = np.exp(x[0][:]-C)
+        y[i] = exp_x / np.sum(exp_x)
     return y
 
 # 교차 엔트로피 (one-hot inocoding)
@@ -18,13 +19,13 @@ def cross_entropy_error(y,t):
     return -np.sum(t*np.log(y+1e-7)) / batch_size
 
 
-class SoftmaxWithLoss
+class SoftmaxWithLoss:
     def __init__(self):
         self.loss = None
         self.y = None
         self.t = None
 
-    def foward(self,x,t):
+    def forward(self,x,t):
         self.t = t
         self.y = softmax(x)
         self.loss = cross_entropy_error(self.y, self.t)
@@ -34,3 +35,16 @@ class SoftmaxWithLoss
         batch_size = self.t.shape[0]
         dx = (self.y - self.t) / batch_size
         return dx
+
+
+data = np.random.rand(3,10)
+t = np.array([[0,0,1,0,0,0,0,0,0,0],
+             [1,0,0,0,0,0,0,0,0,0],
+             [0,0,0,0,0,0,0,1,0,0]])
+
+example = SoftmaxWithLoss()
+print(example.forward(data,t))
+
+
+
+example.backward()

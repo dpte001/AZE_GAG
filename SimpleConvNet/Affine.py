@@ -8,7 +8,7 @@ class Affine:
         self.dW = None
         self.db = None
 
-    def fowrad(self,x):
+    def forwrad(self,x):
         self.x = x
         out = np.dot(x, self.W) + self.b
 
