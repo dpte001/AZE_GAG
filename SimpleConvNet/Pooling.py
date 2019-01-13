@@ -1,5 +1,5 @@
 import numpy as np
-from Convolution import im2col
+from Convolution import *
 
 class Pooling:
     def __init__(self, pool_h, pool_w, stride=1, pad=0):
@@ -23,8 +23,4 @@ class Pooling:
         # 성형 (3)
         out = out.reshape(N, out_h, out_w, C).transpose(0,3,1,2)
 
-        return
-
-data = np.arange(1*3*28*28).reshape(1,3,28,28)
-example = Pooling(5, 5, 5)
-example.forward(data)
+        return out

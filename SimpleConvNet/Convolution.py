@@ -50,10 +50,3 @@ class Convolution:
         a=0
         out = out.reshape(N, out_h, out_w, -1).transpose(0,3,1,2)
         return out
-
-data = np.arange(1*3*28*28).reshape(1,3,28,28)
-W = np.arange(1*3*5*5).reshape(1,3,5,5)
-b = 2
-
-example = Convolution( W, b)
-print(example.forward(data))

@@ -35,16 +35,3 @@ class SoftmaxWithLoss:
         batch_size = self.t.shape[0]
         dx = (self.y - self.t) / batch_size
         return dx
-
-
-data = np.random.rand(3,10)
-t = np.array([[0,0,1,0,0,0,0,0,0,0],
-             [1,0,0,0,0,0,0,0,0,0],
-             [0,0,0,0,0,0,0,1,0,0]])
-
-example = SoftmaxWithLoss()
-print(example.forward(data,t))
-
-
-
-example.backward()

@@ -16,11 +16,3 @@ class Relu:
         dx = dout
 
         return dx
-
-
-data = np.arange(1 * 3 * 4 * 4).reshape(1, 3, 4, 4) - 24
-dout = np.ones((1,3,4,4))
-example = Relu()
-example.forward(data)
-
-print(example.backward(dout))
