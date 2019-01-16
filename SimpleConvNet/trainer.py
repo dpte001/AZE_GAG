@@ -16,7 +16,7 @@ class trainer:
         self.train_size = x_train.shape[0]
         self.iter_per_epoch = max(self.train_size / mini_batch_size, 1)
         self.max_iter = int(epochs * self.iter_per_epoch)
-        self.current_iter = 0
+        self.current_iter =  0
         self.current_epoch = 0
 
         self.train_loss_list = []
@@ -31,9 +31,28 @@ class trainer:
         grads = self.network.gradient(x_batch,t_batch)
         self.optimizer.update(self.network.params, grads)
 
+        loss = self.network.loss(x_batch, t_batch)
+        self.train_loss_list.append(loss)
+        print("train loss = " + str(loss))
+        self.current_iter += 1
+
+        if self.current_iter % self.iter_per_epoch == 0:
+            self.current_epoch += 1
+
+            x_train, t_train = self.x_train, self.t_train
+            x_test, t_test = self.x_test, self.t_test
+
+            train_acc = self.network.accuracy(x_train, t_train)
+            test_acc = self.network.accuracy(x_test, t_test)
+            self.train_acc_list.append(train_acc)
+            self.test_acc_list.append((test_acc))
+            print("===epochs = " + str(self.current_epoch) + ", train acc = " + str(train_acc) + ", test acc = " +str(test_acc) + "===")
+
+
     def train(self):
         for i in range(self.max_iter):
             self.train_step()
+
         test_acc = self.network.accuracy(self.x_test, self.t_test)
 
         print('=================Final Test Accuracy===================')

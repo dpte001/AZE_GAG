@@ -1,6 +1,10 @@
 from mnist import *
 import SimpleConvNet
 from trainer import *
+from Affine import *
+
+
+
 
 
 (x_train, t_train), (x_test, t_test) = load_mnist(normalize=False, one_hot_label=True)
